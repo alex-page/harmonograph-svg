@@ -1,6 +1,6 @@
 {
 	"name": "@harmonograph/svg",
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"description": "👩‍🎨 Draw and animate a harmonograph in SVG",
 	"scripts": {
 		"test": "ava && xo"

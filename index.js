@@ -128,7 +128,7 @@ const generateHarmonographSVG = userSettings => {
 		size: 700,
 		strokeWidth: 1,
 		strokeColor: '#000',
-		backgroundColor: 'transparent',
+		backgroundColor: null,
 		pendulumTime: 150,
 		animatePath: false,
 		pendulums: randomPendulums(),
@@ -152,21 +152,17 @@ const generateHarmonographSVG = userSettings => {
 		styleElement = 	h('style', null, `path{stroke-dasharray:${harmonographLength};stroke-dashoffset:${harmonographLength};animation:go ${animationSettings.duration} ${animationSettings.easing};animation-fill-mode:forwards;}@keyframes go{from{stroke-dashoffset:${harmonographLength}}to{stroke-dashoffset:0;}}`);
 	}
 
-	const backgroundColorElement = backgroundColor === 'transparent' ?
-		null :
-		h('rect', {
-			fill: backgroundColor,
-			width: '100%',
-			height: '100%'
-		});
+	const svgStyle = backgroundColor ? {backgroundColor} : null;
+
+	console.log(svgStyle);
 
 	// // Create the svg element
 	const svg = h('svg', {
 		xmlns: 'http://www.w3.org/2000/svg',
-		viewBox: `0 0 ${size} ${size}`
+		viewBox: `0 0 ${size} ${size}`,
+		style: svgStyle
 	},
 	styleElement,
-	backgroundColorElement,
 	h('path', {
 		stroke: strokeColor,
 		'stroke-width': strokeWidth,
