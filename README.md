@@ -122,5 +122,6 @@ const harmonograph = generateHarmonographSVG({
 
 ## Release History
 
+* v0.0.2  - ✋ Stop animation on last frame
 * v0.0.1  - 🎨 Background color documentation
 * v0.0.0  - 💥 Initial version

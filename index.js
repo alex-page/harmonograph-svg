@@ -139,7 +139,7 @@ const generateHarmonographSVG = userSettings => {
 			...animatePath
 		};
 
-		styleElement = 	h('style', null, `path{stroke-dasharray:${pathLength};stroke-dashoffset:${pathLength};animation:go ${animationSettings.duration} ${animationSettings.easing};}@keyframes go{from{stroke-dashoffset:${pathLength}}to{stroke-dashoffset:0;}}`);
+		styleElement = 	h('style', null, `path{stroke-dasharray:${pathLength};stroke-dashoffset:${pathLength};animation:go ${animationSettings.duration} ${animationSettings.easing};animation-fill-mode:forwards;}@keyframes go{from{stroke-dashoffset:${pathLength}}to{stroke-dashoffset:0;}}`);
 	}
 
 	const backgroundColorElement = backgroundColor === 'transparent' ?
