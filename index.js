@@ -88,6 +88,16 @@ const harmonographBezierPath = (pendulumTime, size, pendulums) => {
 };
 
 /**
+ * Get the length of a path
+ *
+ * @param {string} path - The svg path data
+ */
+const getPathLength = path => {
+	const pathProperties = new SvgPathProperties(path);
+	return pathProperties.getTotalLength();
+};
+
+/**
  * Create a randomised harmonograph SVG
  *
  * Resources:
@@ -128,8 +138,8 @@ const generateHarmonographSVG = userSettings => {
 	// Reduce the number of XY points by using bezier curves
 	const harmonographPath = harmonographBezierPath(pendulumTime, size, pendulums);
 
-	const pathProperties = new SvgPathProperties(harmonographPath);
-	const pathLength = pathProperties.getTotalLength();
+	// Get the length of a harmonograph
+	const harmonographLength = getPathLength(harmonographPath);
 
 	let styleElement = null;
 	if (animatePath) {
@@ -139,7 +149,7 @@ const generateHarmonographSVG = userSettings => {
 			...animatePath
 		};
 
-		styleElement = 	h('style', null, `path{stroke-dasharray:${pathLength};stroke-dashoffset:${pathLength};animation:go ${animationSettings.duration} ${animationSettings.easing};animation-fill-mode:forwards;}@keyframes go{from{stroke-dashoffset:${pathLength}}to{stroke-dashoffset:0;}}`);
+		styleElement = 	h('style', null, `path{stroke-dasharray:${harmonographLength};stroke-dashoffset:${harmonographLength};animation:go ${animationSettings.duration} ${animationSettings.easing};animation-fill-mode:forwards;}@keyframes go{from{stroke-dashoffset:${harmonographLength}}to{stroke-dashoffset:0;}}`);
 	}
 
 	const backgroundColorElement = backgroundColor === 'transparent' ?
@@ -172,4 +182,5 @@ const generateHarmonographSVG = userSettings => {
 
 module.exports = generateHarmonographSVG;
 module.exports.randomPendulums = randomPendulums;
+module.exports.getPathLength = getPathLength;
 module.exports.harmonographBezierPath = harmonographBezierPath;
