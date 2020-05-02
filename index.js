@@ -98,6 +98,7 @@ const harmonographBezierPath = (pendulumTime, size, pendulums) => {
  * @param  {number}  userSettings.size            - The size of the svg
  * @param  {number}  userSettings.strokeWidth     - The width of the line
  * @param  {string}  userSettings.strokeColor     - The color of the harmonograph
+ * @param  {string}  userSettings.backgroundColor - The background color of the harmonograph
  * @param  {number}  userSettings.pendulumTime    - How long the pendulum swings
  * @param  {number}  userSettings.animated        - If the SVG path is animated
  * @param  {array}   userSettings.pendulum        - The pendulum settings, see randomPendulum
@@ -141,13 +142,21 @@ const generateHarmonographSVG = userSettings => {
 		styleElement = 	h('style', null, `path{stroke-dasharray:${pathLength};stroke-dashoffset:${pathLength};animation:go ${animationSettings.duration} ${animationSettings.easing};}@keyframes go{from{stroke-dashoffset:${pathLength}}to{stroke-dashoffset:0;}}`);
 	}
 
+	const backgroundColorElement = backgroundColor === 'transparent' ?
+		null :
+		h('rect', {
+			fill: backgroundColor,
+			width: '100%',
+			height: '100%'
+		});
+
 	// // Create the svg element
 	const svg = h('svg', {
 		xmlns: 'http://www.w3.org/2000/svg',
-		viewBox: `0 0 ${size} ${size}`,
-		backgroundColor
+		viewBox: `0 0 ${size} ${size}`
 	},
 	styleElement,
+	backgroundColorElement,
 	h('path', {
 		stroke: strokeColor,
 		'stroke-width': strokeWidth,
