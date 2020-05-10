@@ -1,6 +1,5 @@
 const {h} = require('preact');
 const render = require('preact-render-to-string');
-const {svgPathProperties: SvgPathProperties} = require('svg-path-properties');
 
 const generateHarmonograph = require('@harmonograph/xy');
 const {randomPendulums} = require('@harmonograph/xy');
@@ -88,16 +87,6 @@ const harmonographBezierPath = (pendulumTime, size, pendulums) => {
 };
 
 /**
- * Get the length of a path
- *
- * @param {string} path - The svg path data
- */
-const getPathLength = path => {
-	const pathProperties = new SvgPathProperties(path);
-	return pathProperties.getTotalLength();
-};
-
-/**
  * Create a randomised harmonograph SVG
  *
  * Resources:
@@ -138,9 +127,6 @@ const generateHarmonographSVG = userSettings => {
 	// Reduce the number of XY points by using bezier curves
 	const harmonographPath = harmonographBezierPath(pendulumTime, size, pendulums);
 
-	// Get the length of a harmonograph
-	const harmonographLength = getPathLength(harmonographPath);
-
 	let styleElement = null;
 	if (animatePath) {
 		const animationSettings = {
@@ -149,12 +135,10 @@ const generateHarmonographSVG = userSettings => {
 			...animatePath
 		};
 
-		styleElement = 	h('style', null, `path{stroke-dasharray:${harmonographLength};stroke-dashoffset:${harmonographLength};animation:go ${animationSettings.duration} ${animationSettings.easing};animation-fill-mode:forwards;}@keyframes go{from{stroke-dashoffset:${harmonographLength}}to{stroke-dashoffset:0;}}`);
+		styleElement = 	h('style', null, `path{stroke-dasharray:1;stroke-dashoffset:1;animation:go ${animationSettings.duration} ${animationSettings.easing};animation-fill-mode:forwards;}@keyframes go{from{stroke-dashoffset:1}to{stroke-dashoffset:0;}}`);
 	}
 
 	const svgStyle = backgroundColor ? {backgroundColor} : null;
-
-	console.log(svgStyle);
 
 	// // Create the svg element
 	const svg = h('svg', {
@@ -167,6 +151,7 @@ const generateHarmonographSVG = userSettings => {
 		stroke: strokeColor,
 		'stroke-width': strokeWidth,
 		fill: 'none',
+		pathLength: 1,
 		d: harmonographPath
 	}));
 
@@ -178,5 +163,4 @@ const generateHarmonographSVG = userSettings => {
 
 module.exports = generateHarmonographSVG;
 module.exports.randomPendulums = randomPendulums;
-module.exports.getPathLength = getPathLength;
 module.exports.harmonographBezierPath = harmonographBezierPath;

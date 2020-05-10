@@ -122,6 +122,7 @@ const harmonograph = generateHarmonographSVG({
 
 ## Release History
 
+* v0.2.0  - ✨ Remove `getPathLength` and use pathLength attribute
 * v0.1.1  - 🎨 Replace rect fill with background color on svg style
 * v0.1.0  - 📏 Add `getPathLength` to return the harmonograph path length
 * v0.0.2  - ✋ Stop animation on last frame
