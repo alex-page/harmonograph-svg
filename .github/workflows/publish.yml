@@ -1,9 +1,9 @@
-name: Publish package on master
+name: Publish package on main
 
 on:
   push:
     branches:
-    - master
+    - main
 
 jobs:
   deploy:
