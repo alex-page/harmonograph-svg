@@ -44,7 +44,7 @@
 		"preact-render-to-string": "^5.1.6"
 	},
 	"devDependencies": {
-		"ava": "^3.8.1",
+		"ava": "^5.1.0",
 		"xo": "^0.53.1"
 	}
 }
